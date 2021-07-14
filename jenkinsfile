@@ -1,0 +1,43 @@
+// Jenkinsfile
+//! \brief The Jenkins CI process for wsf_giant plugin.
+// NOTE: The project uses this file not the web interface.
+pipeline {
+//    agent { label 'win-la-afsim1' }  // Jenkins server node
+
+    stages {
+        stage('Repository Requirement Checks') {
+            steps {
+                echo 'Clone Requirement Checks..'
+                bat "git --version"
+                bat "${WORKSPACE}\\jenkins\\CHECK_git.bat"
+            }
+        }
+//         stage('Clone Repository') {
+//             steps {
+//                 echo 'Cloning Repository..'
+//                 git clone https://git.linquest.com:8443/scm/asi/jenkins-mail-tester.git
+//                 git checkout GIANT-merged
+//             }
+//         }
+        stage('Run Scenarios') {
+            steps {
+                echo 'Running Scenarios..'
+                bat "${WORKSPACE}\\jenkins\\RUN_scenarios.bat"
+            }
+        }
+    }
+    post {
+        success {
+            echo "${env.JOB_NAME} pipeline okay :("
+            mail to: 'Kyle.Finley@LinQuest.com Kyle.Finley.ctr@us.af.mil',
+                subject: "${env.JOB_NAME} pipeline okay :(",
+                body: "SUCCESS ${env.BUILD_URL}"
+        }
+        failure {
+            echo "${env.JOB_NAME} pipeline failed :("
+            mail to: 'Kyle.Finley@LinQuest.com Kyle.Finley.ctr@us.af.mil',
+                subject: "${env.JOB_NAME} pipeline failed :(",
+                body: "FAIL ${env.BUILD_URL}"
+        }
+    }
+}
