@@ -1,7 +1,8 @@
 // Jenkinsfile
-//! \brief The Jenkins CI process for jenkins-mail-tester.
+//! \brief The Jenkins CI process for jenkins-mail-test.
 // NOTE: The project uses this file not the web interface.
 pipeline {
+    agent { label 'win-la-afsim1' }  // Jenkins server node
 
     stages {
         stage('Repository Requirement Checks') {
@@ -10,6 +11,13 @@ pipeline {
                 bat "git --version"
             }
         }
+//         stage('Clone Repository') {
+//             steps {
+//                 echo 'Cloning Repository..'
+//                 git clone https://git.linquest.com:8443/scm/asi/jenkins-mail-tester.git
+//                 git checkout GIANT-merged
+//             }
+//         }
     }
     post {
         success {
