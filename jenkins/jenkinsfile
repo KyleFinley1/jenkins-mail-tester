@@ -1,28 +1,13 @@
 // Jenkinsfile
-//! \brief The Jenkins CI process for wsf_giant plugin.
+//! \brief The Jenkins CI process for jenkins-mail-tester.
 // NOTE: The project uses this file not the web interface.
 pipeline {
-//    agent { label 'win-la-afsim1' }  // Jenkins server node
 
     stages {
         stage('Repository Requirement Checks') {
             steps {
                 echo 'Clone Requirement Checks..'
                 bat "git --version"
-                bat "${WORKSPACE}\\jenkins\\CHECK_git.bat"
-            }
-        }
-//         stage('Clone Repository') {
-//             steps {
-//                 echo 'Cloning Repository..'
-//                 git clone https://git.linquest.com:8443/scm/asi/jenkins-mail-tester.git
-//                 git checkout GIANT-merged
-//             }
-//         }
-        stage('Run Scenarios') {
-            steps {
-                echo 'Running Scenarios..'
-                bat "${WORKSPACE}\\jenkins\\RUN_scenarios.bat"
             }
         }
     }
