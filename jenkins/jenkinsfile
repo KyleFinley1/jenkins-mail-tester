@@ -22,7 +22,7 @@ pipeline {
     }
     post {
         success {
-            echo "${env.JOB_NAME} pipeline okay :("
+            echo "${env.JOB_NAME} pipeline okay :)"
             mail to: 'Kyle.Finley@LinQuest.com Kyle.Finley.ctr@us.af.mil',
                 subject: "${env.JOB_NAME} pipeline okay :)",
                 body: "SUCCESS ${env.BUILD_URL}"
