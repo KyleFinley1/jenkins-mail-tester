@@ -2,7 +2,8 @@
 //! \brief The Jenkins CI process for jenkins-mail-test.
 // NOTE: The project uses this file not the web interface.
 pipeline {
-    agent { label 'win-la-afsim1' }  // Jenkins server node
+//    agent { label 'win-la-afsim1' }  // Jenkins server node
+    agent any
 
     stages {
         stage('Repository Requirement Checks') {
@@ -23,7 +24,7 @@ pipeline {
         success {
             echo "${env.JOB_NAME} pipeline okay :("
             mail to: 'Kyle.Finley@LinQuest.com Kyle.Finley.ctr@us.af.mil',
-                subject: "${env.JOB_NAME} pipeline okay :(",
+                subject: "${env.JOB_NAME} pipeline okay :)",
                 body: "SUCCESS ${env.BUILD_URL}"
         }
         failure {
